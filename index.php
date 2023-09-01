@@ -66,10 +66,10 @@
         async function showInfo(idNumber) {
             document.getElementById('studentInfoBox_' + idNumber).innerHTML = 'Loading...';
 
-            const response = await fetch("getinfo.php?id=" + idNumber);
-            const html = await response.text();
+            const response = await fetch("getinfo.php?id=" + idNumber); // $_GET['id']
+            const text = await response.text();
 
-            document.getElementById('studentInfoBox_' + idNumber).innerHTML = html;
+            document.getElementById('studentInfoBox_' + idNumber).innerHTML = text;
         }
     </script>
 </body>
