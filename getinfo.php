@@ -1,10 +1,11 @@
 <?php
 /* GET INFO */
+require_once 'libs.php';
 
+sleep(2);
 
 try {
-    $dbConnectionString = 'mysql:host=localhost;dbname=q8universityapp_db';
-    $DBCONN = new PDO($dbConnectionString, 'root', '');
+    $DBCONN = databaseConnect();
 
     $sqlSelect = "SELECT * FROM `student` WHERE `id` = '" . $_GET['id'] . "'";
     $statement = $DBCONN->query($sqlSelect);

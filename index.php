@@ -1,3 +1,7 @@
+<?php
+require_once 'libs.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,24 +35,23 @@
 
     <h2>STUDENTS LIST</h2>
 
-    <table border="1" cellpadding="10" cellspacing="0">
+    <table border="1" cellpadding="10" cellspacing="0" width="75%" align="center">
         <thead>
             <tr>
-                <th>STUDENT ID NUMBER</th>
+                <th width="150">STUDENT ID NUMBER</th>
                 <th>STUDENT FULL NAME</th>
             </tr>
         </thead>
         <tbody>
             <?php
             try {
-                $dbConnectionString = 'mysql:host=localhost;dbname=q8universityapp_db';
-                $DBCONN = new PDO($dbConnectionString, 'root', '');
+                $DBCONN = databaseConnect();
 
                 $sqlList = "SELECT * FROM `student` ORDER BY `id`";
                 $statement = $DBCONN->query($sqlList);
                 for ($i = 1; $row = $statement->fetch(); $i++) { ?>
                     <tr>
-                        <td>
+                        <td style="text-align: center">
                             <a href="#" onclick="showInfo('<?= $row['id'] ?>');"><?php echo $row['id']; ?></a>
                         </td>
                         <td id="studentInfoBox_<?php echo $row['id']; ?>">
@@ -64,7 +67,8 @@
     </table>
     <script>
         async function showInfo(idNumber) {
-            document.getElementById('studentInfoBox_' + idNumber).innerHTML = 'Loading...';
+            document.getElementById('studentInfoBox_' + idNumber).innerHTML 
+                = '<img src="loading.gif" height="20"> Loading...';
 
             const response = await fetch("getinfo.php?id=" + idNumber); // $_GET['id']
             const text = await response.text();
