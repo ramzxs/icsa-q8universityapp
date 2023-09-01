@@ -51,7 +51,7 @@
                         <td>
                             <a href="#" onclick="showInfo('<?= $row['id'] ?>');"><?php echo $row['id']; ?></a>
                         </td>
-                        <td>
+                        <td id="studentInfoBox_<?php echo $row['id']; ?>">
                         </td>
                     </tr>
                     <?php
@@ -63,8 +63,13 @@
         </tbody>
     </table>
     <script>
-        function showInfo(idNumber) {
-            console.log(idNumber);
+        async function showInfo(idNumber) {
+            document.getElementById('studentInfoBox_' + idNumber).innerHTML = 'Loading...';
+
+            const response = await fetch("getinfo.php?id=" + idNumber);
+            const html = await response.text();
+
+            document.getElementById('studentInfoBox_' + idNumber).innerHTML = html;
         }
     </script>
 </body>
